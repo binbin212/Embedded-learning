@@ -2,11 +2,11 @@
 
 void Delay(unsigned int xms);
 
- unsigned char LEDNum;
+ unsigned char LEDNum=0;
 	
 void main()
 {
-	P2=~0x01;
+	
 	while(1)
 	{
 		if(P3_0==0)
@@ -15,9 +15,14 @@ void main()
 			while(P3_0==0);
 			Delay(20);
 			
+			if(LEDNum==0&&P2==0xFF){P2=~0x01;continue;}
+			
 			LEDNum++;
 			if(LEDNum>=8)LEDNum=0;
 			P2=~(0x01<<LEDNum);
+			
+			
+			
 		}
 		if(P3_1==0)
 		{
@@ -25,11 +30,11 @@ void main()
 			while(P3_1==0);
 			Delay(20);
 			
-			if(LEDNum==0)
-				LEDNum=7;
-			else
-				LEDNum--;
+			if(LEDNum==0&&P2==0xFF){P2=~0x01;continue;}
+			if(LEDNum==0)LEDNum=8;
+			LEDNum--;
 			P2=~(0x01<<LEDNum);
+			
 		}
 	}
 }

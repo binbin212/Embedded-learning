@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        04/11/2024  00:05:54  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/13/2024  00:05:24  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -11,6 +11,7 @@ MEMORY MODEL: SMALL
 INPUT MODULES INCLUDED:
   .\Objects\main.obj (MAIN)
   D:\KEIL5\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\KEIL5\C51\LIB\C51S.LIB (?C_INIT)
 
 
 LINK MAP OF MODULE:  .\Objects\Project (MAIN)
@@ -26,9 +27,10 @@ LINK MAP OF MODULE:  .\Objects\Project (MAIN)
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
-            CODE    0003H     0054H     UNIT         ?PR?MAIN?MAIN
-            CODE    0057H     0019H     UNIT         ?PR?_DELAY?MAIN
-            CODE    0070H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     0068H     UNIT         ?PR?MAIN?MAIN
+            CODE    00F7H     0019H     UNIT         ?PR?_DELAY?MAIN
+            CODE    0110H     0004H     UNIT         ?C_INITSEG
 
 
 
@@ -40,6 +42,7 @@ SEGMENT
 ---------------------
 ?C_C51STARTUP
   +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
 
 ?PR?MAIN?MAIN
   +--> ?PR?_DELAY?MAIN
@@ -56,62 +59,62 @@ SYMBOL TABLE OF MODULE:  .\Objects\Project (MAIN)
   D:00A0H         PUBLIC        P2
   D:0008H         PUBLIC        LEDNum
   B:00B0H.0       PUBLIC        P3_0
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/13/2024  00:05:24  PAGE 2
+
+
   B:00B0H.1       PUBLIC        P3_1
-  C:0003H         PUBLIC        main
-  C:005BH         PUBLIC        _Delay
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/11/2024  00:05:54  PAGE 2
-
-
+  C:008FH         PUBLIC        main
+  C:00FBH         PUBLIC        _Delay
   -------         PROC          MAIN
-  C:0003H         LINE#         7
-  C:0003H         LINE#         8
-  C:0003H         LINE#         9
-  C:0006H         LINE#         10
-  C:0006H         LINE#         11
-  C:0006H         LINE#         12
-  C:0009H         LINE#         13
-  C:0009H         LINE#         14
-  C:000CH         LINE#         15
-  C:000FH         LINE#         16
-  C:0012H         LINE#         18
-  C:0014H         LINE#         19
-  C:001EH         LINE#         20
-  C:002EH         LINE#         21
-  C:002EH         LINE#         22
-  C:0031H         LINE#         23
-  C:0031H         LINE#         24
-  C:0034H         LINE#         25
-  C:0037H         LINE#         26
-  C:003AH         LINE#         28
-  C:003EH         LINE#         29
-  C:0043H         LINE#         31
-  C:0045H         LINE#         32
-  C:0055H         LINE#         33
-  C:0055H         LINE#         34
+  C:008FH         LINE#         7
+  C:008FH         LINE#         8
+  C:008FH         LINE#         10
+  C:008FH         LINE#         11
+  C:008FH         LINE#         12
+  C:0092H         LINE#         13
+  C:0092H         LINE#         14
+  C:0095H         LINE#         15
+  C:0098H         LINE#         16
+  C:009BH         LINE#         18
+  C:00A6H         LINE#         20
+  C:00A8H         LINE#         21
+  C:00B2H         LINE#         22
+  C:00C2H         LINE#         26
+  C:00C2H         LINE#         27
+  C:00C5H         LINE#         28
+  C:00C5H         LINE#         29
+  C:00C8H         LINE#         30
+  C:00CBH         LINE#         31
+  C:00CEH         LINE#         33
+  C:00DCH         LINE#         34
+  C:00E3H         LINE#         35
+  C:00E5H         LINE#         36
+  C:00F5H         LINE#         38
+  C:00F5H         LINE#         39
   -------         ENDPROC       MAIN
-  C:0057H         SYMBOL        L?0027
-  -------         PROC          L?0026
-  -------         ENDPROC       L?0026
-  C:0057H         SYMBOL        L?0027
+  C:00F7H         SYMBOL        L?0029
+  -------         PROC          L?0028
+  -------         ENDPROC       L?0028
+  C:00F7H         SYMBOL        L?0029
   -------         PROC          _DELAY
   D:0006H         SYMBOL        xms
   -------         DO            
   D:0005H         SYMBOL        i
   D:0004H         SYMBOL        j
   -------         ENDDO         
-  C:005BH         LINE#         37
-  C:005BH         LINE#         38
-  C:005BH         LINE#         40
-  C:0065H         LINE#         41
-  C:0065H         LINE#         42
-  C:0067H         LINE#         43
-  C:0069H         LINE#         45
-  C:0069H         LINE#         46
-  C:006BH         LINE#         47
-  C:006DH         LINE#         48
-  C:006FH         LINE#         50
+  C:00FBH         LINE#         42
+  C:00FBH         LINE#         43
+  C:00FBH         LINE#         45
+  C:0105H         LINE#         46
+  C:0105H         LINE#         47
+  C:0107H         LINE#         48
+  C:0109H         LINE#         50
+  C:0109H         LINE#         51
+  C:010BH         LINE#         52
+  C:010DH         LINE#         53
+  C:010FH         LINE#         55
   -------         ENDPROC       _DELAY
   -------         ENDMOD        MAIN
 
-Program Size: data=10.0 xdata=0 code=124
+Program Size: data=10.0 xdata=0 code=276
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

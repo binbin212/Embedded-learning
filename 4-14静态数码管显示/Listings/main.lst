@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  04/14/2024 23:17:19 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  04/16/2024 00:10:39 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -10,28 +10,70 @@ line level    source
 
    1          #include <REGX52.H>
    2          
-   3          void main()
-   4          {
-   5   1        P2_4=1;
-   6   1        P2_3=1;
-   7   1        P2_2=1;
-   8   1        P2_1=0;
-   9   1        
-  10   1        P0=0x99;
-  11   1        while(1)
-  12   1        {
-  13   2          
-  14   2        }
-  15   1      
-  16   1      }
+   3          unsigned char NixieTable[]={0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+   4          
+   5          void Nixie(unsigned char Location,Number)
+   6          {
+   7   1        switch(Location)
+   8   1        {
+   9   2          case 1:P2_4=1;P2_3=1;P2_2=1;P2_1=0;break;
+  10   2          case 2:P2_4=1;P2_3=1;P2_2=0;P2_1=1;break;
+  11   2          case 3:P2_4=1;P2_3=0;P2_2=1;P2_1=1;break;
+  12   2          case 4:P2_4=0;P2_3=1;P2_2=1;P2_1=1;break; 
+  13   2        }
+  14   1        P0=NixieTable[Number];
+  15   1      }
+  16          
+  17          void Delay(unsigned char Hm)  //@11.0592MHz
+  18          {
+  19   1        unsigned char data i, j;
+  20   1        while(Hm)
+  21   1        {
+  22   2          
+  23   2          i = 2;
+  24   2          j = 199;
+  25   2          do
+  26   2          {
+  27   3            while (--j);
+  28   3          } while (--i);
+  29   2          Hm--;
+  30   2        }
+  31   1        
+  32   1      }
+  33          
+  34          
+  35          void main()
+  36          {
+  37   1        
+  38   1        unsigned char Num=0,Location=1;
+  39   1        
+  40   1        while(Location)
+  41   1        { 
+  42   2          if(Location==5)break;
+  43   2          if(Num==10)Num=0;
+  44   2          while(Num<10)
+  45   2          {
+  46   3            Nixie(Location,Num);
+  47   3            Delay(1000);
+  48   3            Delay(1000);
+  49   3            Delay(1000);
+  50   3            Num++;
+  51   3          }
+  52   2          Location++;
+  53   2        }
+  54   1        
+C51 COMPILER V9.54   MAIN                                                                  04/16/2024 00:10:39 PAGE 2   
+
+  55   1      
+  56   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     13    ----
+   CODE SIZE        =    124    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----    ----
+   DATA SIZE        =     10    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

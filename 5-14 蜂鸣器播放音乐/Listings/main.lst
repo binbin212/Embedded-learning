@@ -1,0 +1,292 @@
+C51 COMPILER V9.54   MAIN                                                                  05/14/2024 18:46:07 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\keil5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main.l
+                    -st) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "Delay.h"
+   3          #include "Timer0.h"
+   4          
+   5          sbit Buzzer=P1^5;
+   6          
+   7          #define SPEED 500
+   8          #define P 0
+   9          #define L1  1
+  10          #define L1_ 2
+  11          #define L2  3
+  12          #define L2_ 4
+  13          #define L3  5
+  14          #define L4  6
+  15          #define L4_ 7
+  16          #define L5  8
+  17          #define L5_ 9
+  18          #define L6  10
+  19          #define L6_ 11
+  20          #define L7  12
+  21          #define M1  13
+  22          #define M1_ 14
+  23          #define M2  15
+  24          #define M2_ 16
+  25          #define M3  17
+  26          #define M4  18
+  27          #define M4_ 19
+  28          #define M5  20
+  29          #define M5_ 21
+  30          #define M6  22
+  31          #define M6_ 23
+  32          #define M7  24
+  33          #define H1  25
+  34          #define H1_ 26
+  35          #define H2  27
+  36          #define H2_ 28
+  37          #define H3  29
+  38          #define H4  30
+  39          #define H4_ 31
+  40          #define H5  32
+  41          #define H5_ 33
+  42          #define H6  34
+  43          #define H6_ 35
+  44          #define H7  36
+  45          
+  46          
+  47          
+  48          
+  49          unsigned int FreqTable[]={
+  50              0,
+  51            63628,63731,63835,63928,64021,64103,64185,64260,64331,64400,64463,64528,
+  52            64580,64633,64684,64732,64777,64820,64860,64898,64934,64968,65000,65030,
+  53            65058,65085,65110,65134,65157,65178,65198,65217,65235,65252,65268,65283,
+  54          };
+C51 COMPILER V9.54   MAIN                                                                  05/14/2024 18:46:07 PAGE 2   
+
+  55          //乐谱
+  56          unsigned char code Music[]={
+  57            //音符,时值,
+  58            
+  59            //1
+  60            P,  4,
+  61            P,  4,
+  62            P,  4,
+  63            M6, 2,
+  64            M7, 2,
+  65            
+  66            H1, 4+2,
+  67            M7, 2,
+  68            H1, 4,
+  69            H3, 4,
+  70            
+  71            M7, 4+4+4,
+  72            M3, 2,
+  73            M3, 2,
+  74            
+  75            //2
+  76            M6, 4+2,
+  77            M5, 2,
+  78            M6, 4,
+  79            H1, 4,
+  80            
+  81            M5, 4+4+4,
+  82            M3, 4,
+  83            
+  84            M4, 4+2,
+  85            M3, 2,
+  86            M4, 4,
+  87            H1, 4,
+  88            
+  89            //3
+  90            M3, 4+4,
+  91            P,  2,
+  92            H1, 2,
+  93            H1, 2,
+  94            H1, 2,
+  95            
+  96            M7, 4+2,
+  97            M4_,2,
+  98            M4_,4,
+  99            M7, 4,
+ 100            
+ 101            M7, 8,
+ 102            P,  4,
+ 103            M6, 2,
+ 104            M7, 2,
+ 105            
+ 106            //4
+ 107            H1, 4+2,
+ 108            M7, 2,
+ 109            H1, 4,
+ 110            H3, 4,
+ 111            
+ 112            M7, 4+4+4,
+ 113            M3, 2,
+ 114            M3, 2,
+ 115            
+ 116            M6, 4+2,
+C51 COMPILER V9.54   MAIN                                                                  05/14/2024 18:46:07 PAGE 3   
+
+ 117            M5, 2,
+ 118            M6, 4,
+ 119            H1, 4,
+ 120            
+ 121            //5
+ 122            M5, 4+4+4,
+ 123            M2, 2,
+ 124            M3, 2,
+ 125            
+ 126            M4, 4,
+ 127            H1, 2,
+ 128            M7, 2+2,
+ 129            H1, 2+4,
+ 130            
+ 131            H2, 2,
+ 132            H2, 2,
+ 133            H3, 2,
+ 134            H1, 2+4+4,
+ 135            
+ 136            //6
+ 137            H1, 2,
+ 138            M7, 2,
+ 139            M6, 2,
+ 140            M6, 2,
+ 141            M7, 4,
+ 142            M5_,4,
+ 143            
+ 144            
+ 145            M6, 4+4+4,
+ 146            H1, 2,
+ 147            H2, 2,
+ 148            
+ 149            H3, 4+2,
+ 150            H2, 2,
+ 151            H3, 4,
+ 152            H5, 4,
+ 153            
+ 154            //7
+ 155            H2, 4+4+4,
+ 156            M5, 2,
+ 157            M5, 2,
+ 158            
+ 159            H1, 4+2,
+ 160            M7, 2,
+ 161            H1, 4,
+ 162            H3, 4,
+ 163            
+ 164            H3, 4+4+4+4,
+ 165            
+ 166            //8
+ 167            M6, 2,
+ 168            M7, 2,
+ 169            H1, 4,
+ 170            M7, 4,
+ 171            H2, 2,
+ 172            H2, 2,
+ 173            
+ 174            H1, 4+2,
+ 175            M5, 2+4+4,
+ 176            
+ 177            H4, 4,
+ 178            H3, 4,
+C51 COMPILER V9.54   MAIN                                                                  05/14/2024 18:46:07 PAGE 4   
+
+ 179            H3, 4,
+ 180            H1, 4,
+ 181            
+ 182            //9
+ 183            H3, 4+4+4,
+ 184            H3, 4,
+ 185            
+ 186            H6, 4+4,
+ 187            H5, 4,
+ 188            H5, 4,
+ 189            
+ 190            H3, 2,
+ 191            H2, 2,
+ 192            H1, 4+4,
+ 193            P,  2,
+ 194            H1, 2,
+ 195            
+ 196            //10
+ 197            H2, 4,
+ 198            H1, 2,
+ 199            H2, 2,
+ 200            H2, 4,
+ 201            H5, 4,
+ 202            
+ 203            H3, 4+4+4,
+ 204            H3, 4,
+ 205            
+ 206            H6, 4+4,
+ 207            H5, 4+4,
+ 208            
+ 209            //11
+ 210            H3, 2,
+ 211            H2, 2,
+ 212            H1, 4+4,
+ 213            P,  2,
+ 214            H1, 2,
+ 215            
+ 216            H2, 4,
+ 217            H1, 2,
+ 218            H2, 2+4,
+ 219            M7, 4,
+ 220            
+ 221            M6, 4+4+4,
+ 222            P,  4,
+ 223            
+ 224            0xFF  //终止标志
+ 225          };
+ 226          
+ 227          unsigned char FreqSelect,MusicSelect;
+ 228          
+ 229          void main()
+ 230          {
+ 231   1        Timer0_Init();
+*** WARNING C206 IN LINE 231 OF main.c: 'Timer0_Init': missing function-prototype
+ 232   1        while(1)
+ 233   1        {
+ 234   2          if(Music[MusicSelect]!=0xFF)  //如果不是停止标志位
+ 235   2          {
+ 236   3            FreqSelect=Music[MusicSelect];  //选择音符对应的频率
+ 237   3            MusicSelect++;
+ 238   3            Delay(SPEED/4*Music[MusicSelect]);  //选择音符对应的时值
+ 239   3            MusicSelect++;
+C51 COMPILER V9.54   MAIN                                                                  05/14/2024 18:46:07 PAGE 5   
+
+ 240   3            TR0=0;
+ 241   3            Delay(5); //音符间短暂停顿
+ 242   3            TR0=1;
+ 243   3          }
+ 244   2          else  //如果是停止标志位
+ 245   2          {
+ 246   3            TR0=0;
+ 247   3            while(1);
+ 248   3          }
+ 249   2        }
+ 250   1      }
+ 251          void Timer0_Routine() interrupt 1
+ 252          {
+ 253   1        if(FreqTable[FreqSelect]) //如果不是休止符
+ 254   1        {
+ 255   2        TL0 = FreqTable[FreqSelect]%256;  
+ 256   2        TH0=FreqTable[FreqSelect]/256;
+ 257   2        Buzzer=!Buzzer;
+ 258   2        }
+ 259   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    101    ----
+   CONSTANT SIZE    =    241    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     76    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
